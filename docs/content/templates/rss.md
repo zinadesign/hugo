@@ -16,7 +16,7 @@ weight: 90
 Like all other templates, you can use a single RSS template to generate
 all of your RSS feeds, or you can create a specific template for each
 individual feed. Unlike other templates, *Hugo ships with its own
-[RSS 2.0 template](#the-embedded-rss-xml:eceb479b7b3b2077408a2878a29e1320).
+[RSS 2.0 template](#toc_5).
 In most cases this will be sufficient, and an RSS
 template will not need to be provided by the user.*
 
