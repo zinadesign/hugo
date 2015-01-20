@@ -25,10 +25,10 @@ matter, content or derived from file location.
 <dl>
 <dt><code>.Title</code></dt><dd> The title for the content.</dd>
 <dt><code>.Content</code></dt><dd>The content itself, defined below the front matter.</dd>
-
 <dt><code>.Summary</code></dt>
-<dd>A generated summary of the content for easily showing a snippet in a summary view. Note that the breakpoint can be set manually by inserting <code>&lt;!&#x2d;&#x2d;more&#x2d;&#x2d;&gt;</code> at the appropriate place in the content page.</dd>
-
+<dd>A generated summary of the content for easily showing a snippet in a summary view. Note that the breakpoint can be set manually by inserting <code>&lt;!&#x2d;&#x2d;more&#x2d;&#x2d;&gt;</code> at the appropriate place in the content page.  See <a href="/content/summaries/">Summaries</a> for more details.</dd>
+<dt><code>.Truncated</code></dt>
+<dd>A boolean, <code>true</code> if the <code>.Summary</code> is truncated.  Useful for showing a “Read more…” link only if necessary.  See <a href="/content/summaries/">Summaries</a> for more details.</dd>
 <dt><code>.Description</code></dt><dd>The description for the content.</dd>
 <dt><code>.Keywords</code></dt><dd>The meta keywords for this content.</dd>
 <dt><code>.Date</code></dt><dd>The date the content is associated with.</dd>
