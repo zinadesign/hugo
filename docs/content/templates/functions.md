@@ -210,12 +210,11 @@ rendering the whole string as plain-text like this:
 > source should go in the page, but by default dynamic `javascript:` URLs are
 > filtered out since they are a frequently exploited injection vector.
 >
-> [RFC 3986]: http://tools.ietf.org/html/rfc3986
->
 > Without `safeUrl`, only the URI schemes `http:`, `https:` and `mailto:`
-> are considered safe.  All other URI schemes, e.g.&nbsp;`irc:` and
-> `javascript:`, get filtered and replaced with the `ZgotmplZ` unsafe
-> content indicator.
+> are considered safe by Go.  If any other URI schemes, e.g.&nbsp;`irc:` and
+> `javascript:`, are detected, the whole URL would be replaced with
+> `#ZgotmplZ`.  This is to "defang" any potential attack in the URL,
+> rendering it useless.
 >
 > Example: Given a site-wide `config.toml` that contains this menu entry:
 >
@@ -240,6 +239,8 @@ rendering the whole string as plain-text like this:
 >
 > With this change, we finally get `<li><a href="irc://irc.freenode.net/#golang">IRC: #golang at freenode</a></li>`
 > as intended.
+
+[RFC 3986]: http://tools.ietf.org/html/rfc3986
 
 ----
 
