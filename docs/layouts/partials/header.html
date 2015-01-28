@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="keyword" content="">
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+    {{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+    <meta name="generator" content="Hugo 0.12" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
     <title>{{.Title}}</title>
@@ -15,79 +15,6 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/style-responsive.css" rel="stylesheet" />
     <link href="/css/monokai_sublime.css" rel="stylesheet" />
-
-    <style type="text/css">
-      /* Until CloudFlare cache of /css/style.css is purged... */
-      input.gsc-input,
-      .gsc-input-box,
-      .gsc-input-box-hover,
-      .gsc-input-box-focus,
-      .gsc-search-button,
-      .gsc-inline-block {
-        box-sizing: content-box;
-        line-height: normal;
-      }
-      .gsc-control-cse {
-        padding: 0.1em 0 0.5em 1em !important;
-        width: 16em !important;
-        float: right;
-      }
-      input.gsc-search-button-v2 {
-        padding: 6px 12px !important;
-      }
-      .gsc-search-box-tools .gsc-search-box .gsc-input {
-        padding-right: 1px !important;
-      }
-      #sidebar {
-        width: 214px;
-      }
-      ul.sidebar-menu li {
-        text-transform: none;
-      }
-      ul.sidebar-menu li a {
-        white-space: nowrap;
-      }
-      table.table {
-        margin: 1em 0;
-      }
-      .table-bordered th,
-      .table-bordered td {
-        border: 2px solid #ddd;
-        padding: 0 0.5em;
-      }
-      td.purpose-title {
-        text-align: right;
-        vertical-align: top;
-        border-right: 0;
-        padding-right: 0.5em;
-        font-weight: bold;
-      }
-      td.purpose-description {
-        border-left: 0;
-      }
-      dl {
-        margin: 1em;
-        border-bottom: 1px solid #ccc;
-      }
-      dt {
-        float: left;
-        clear: left;
-        width: 9.5em;
-        margin: 0.125em;
-        padding: 2px 4px;
-      }
-      dd {
-        padding: 0.2em 0 0.2em 10em;
-        border-top: 1px solid #ccc;
-      }
-      #main-content .fa {
-        display: inline;
-      }
-      i.freebsd-19px:before {
-        content: url(/img/freebsd-19px.svg);
-        vertical-align: -7%;
-      }
-    </style>
   </head>
 
   <body>
@@ -102,7 +29,7 @@
             </div>
 
             <!--logo start-->
-            <a href="/" class="logo"><img src="/img/hugo-logo.png" style="height:40px;"></a>
+            <a href="/" class="logo"><img src="/img/hugo-logo.png" style="height: 40px; vertical-align: bottom;"> <span style="font-size: small; text-transform: none;">v0.12</span></a>
             <!--logo end-->
             <div class="top-nav notification-row">
                 <!-- notification dropdown end-->

@@ -37,7 +37,7 @@ matter, content or derived from file location.
 <dt><code>.Section</code></dt><dd>The <a href="/content/sections/">section</a> this content belongs to.</dd>
 <dt><code>.Permalink</code></dt><dd>The Permanent link for this page.</dd>
 <dt><code>.RelPermalink</code></dt><dd>The Relative permanent link for this page.</dd>
-<dt><code>.LinkTitle</code></dt><dd>Access when creating links to this content. Will use linktitle if set in front-matter, else title.</dd>
+<dt><code>.LinkTitle</code></dt><dd>Access when creating links to this content. Will use <code>linktitle</code> if set in front-matter, else <code>title</code>.</dd>
 <dt><code>.Taxonomies</code></dt><dd>These will use the field name of the plural form of the index (see tags and categories above).</dd>
 <dt><code>.RSSLink</code></dt><dd>Link to the indexes’ RSS link.</dd>
 <dt><code>.TableOfContents</code></dt><dd>The rendered table of contents for this content.</dd>

@@ -69,6 +69,6 @@ Here is a yaml configuration file which sets a few more options
 
 ## Notes
 
-Config changes are not reflected with [LiveReload](/extras/livereload).
+Config changes are not reflected with [LiveReload](/extras/livereload/).
 
 Please restart `hugo server --watch` whenever you make a config change.

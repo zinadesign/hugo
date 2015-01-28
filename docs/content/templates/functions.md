@@ -261,4 +261,4 @@ e.g. `{{title "BatMan"}}` → "Batman"
 
 ### highlight
 Take a string of code and a language, uses Pygments to return the syntax
-highlighted code in HTML. Used in the [highlight shortcode](/extras/highlighting).
+highlighted code in HTML. Used in the [highlight shortcode](/extras/highlighting/).
