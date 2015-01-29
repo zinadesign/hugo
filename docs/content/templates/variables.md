@@ -38,8 +38,8 @@ matter, content or derived from file location.
 <dt><code>.Permalink</code></dt><dd>The Permanent link for this page.</dd>
 <dt><code>.RelPermalink</code></dt><dd>The Relative permanent link for this page.</dd>
 <dt><code>.LinkTitle</code></dt><dd>Access when creating links to this content. Will use <code>linktitle</code> if set in front-matter, else <code>title</code>.</dd>
-<dt><code>.Taxonomies</code></dt><dd>These will use the field name of the plural form of the index (see tags and categories above).</dd>
-<dt><code>.RSSLink</code></dt><dd>Link to the indexes’ RSS link.</dd>
+<dt><code>.Taxonomies</code></dt><dd>These will use the field name of the plural form of the index (see tags and categories below).</dd>
+<dt><code>.RSSLink</code></dt><dd>Link to the taxonomies’ RSS link.</dd>
 <dt><code>.TableOfContents</code></dt><dd>The rendered table of contents for this content.</dd>
 <dt><code>.Prev</code></dt><dd>Pointer to the previous content (based on pub date).</dd>
 <dt><code>.Next</code></dt><dd>Pointer to the following content (based on pub date).</dd>
@@ -56,8 +56,8 @@ matter, content or derived from file location.
 
 ## Page Params
 
-Any other value defined in the front matter, including indexes will be made available under `.Params`.
-Take for example I'm using tags and categories as my indexes. The following would be how I would access them:
+Any other value defined in the front matter, including taxonomies, will be made available under `.Params`.
+Take for example I'm using *tags* and *categories* as my taxonomies. The following would be how I would access them:
 
 * `.Params.tags`
 * `.Params.categories`
@@ -66,14 +66,14 @@ Take for example I'm using tags and categories as my indexes. The following woul
 
 ## Node Variables
 In Hugo, a node is any page not rendered directly by a content file. This
-includes indexes, lists and the homepage.
+includes taxonomies, lists and the homepage.
 
 <dl>
 <dt><code>.Title</code></dt><dd> The title for the content.</dd>
 <dt><code>.Date</code></dt><dd>The date the content is published on.</dd>
 <dt><code>.Permalink</code></dt><dd>The Permanent link for this node</dd>
 <dt><code>.Url</code></dt><dd>The relative URL for this node.</dd>
-<dt><code>.RSSLink</code></dt><dd>Link to the indexes’ RSS link</dd>
+<dt><code>.RSSLink</code></dt><dd>Link to the taxonomies’ RSS link</dd>
 <dt><code>.Data</code></dt><dd>The data specific to this type of node.</dd>
 <dt><code>.IsNode</code></dt><dd>Always true for nodes.</dd>
 <dt><code>.IsPage</code></dt><dd>Always false for nodes.</dd>
@@ -86,9 +86,9 @@ Also available is `.Site` which has the following:
 
 <dl>
 <dt><code>.Site.BaseUrl</code></dt><dd>The base URL for the site as defined in the site configuration file.</dd>
-<dt><code>.Site.Taxonomies</code></dt><dd>The indexes for the entire site.</dd>
+<dt><code>.Site.Taxonomies</code></dt><dd>The <a href="/taxonomies/usage/">taxonomies</a> for the entire site. Replaces the now-obsolete <code>.Site.Indexes</code> since v0.11.</dd>
 <dt><code>.Site.LastChange</code></dt><dd>The date of the last change of the most recent content.</dd>
-<dt><code>.Site.Recent</code></dt><dd>Array of all content ordered by Date, newest first.</dd>
+<dt><code>.Site.Recent</code></dt><dd>Array of all content ordered by Date, newest first.  To be replaced by <code>.Site.Pages</code> starting v0.13.</dd>
 <dt><code>.Site.Params</code></dt><dd>A container holding the values from the <code>params</code> section of your site configuration file. For example, a TOML config file might look like this:
 <pre><code>baseurl = "http://yoursite.example.com/"
 
