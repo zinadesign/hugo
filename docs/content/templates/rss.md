@@ -83,13 +83,13 @@ This is the RSS template that ships with Hugo. It adheres to the
         <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
         <webMaster>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</webMaster>{{end}}{{ with .Site.Copyright }}
         <copyright>{{.}}</copyright>{{end}}{{ if not .Date.IsZero }}
-        <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
-        <atom:link href="{{.URL}}" rel="self" type="application/rss+xml" />
+        <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHtml }}</lastBuildDate>{{ end }}
+        <atom:link href="{{.Url}}" rel="self" type="application/rss+xml" />
         {{ range first 15 .Data.Pages }}
         <item>
           <title>{{ .Title }}</title>
           <link>{{ .Permalink }}</link>
-          <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+          <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHtml }}</pubDate>
           {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
           <guid>{{ .Permalink }}</guid>
           <description>{{ .Content | html }}</description>
