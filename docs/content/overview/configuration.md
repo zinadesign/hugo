@@ -76,10 +76,10 @@ Following is a list of Hugo-defined variables that you can configure and their c
     # hostname (and path) to the root eg. http://spf13.com/
     baseurl:                    "" 
     # include content marked as draft
-    buildDrafts:                false 
-    # include content with datePublished in the future
-    buildFuture:                false 
-    canonifyUrls:               false
+    buildDrafts:                false
+    # include content with publishdate in the future
+    buildFuture:                false
+    canonifyURLs:               false
     # config file (default is path/config.yaml|json|toml)
     config:                     "config.toml"    
     contentdir:                 "content"
