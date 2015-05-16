@@ -73,12 +73,9 @@ Not doing either will result in the text being rendered as HTML. This will preve
 
 ### Disclaimers
 
-<<<<<<< HEAD
- * **Warning:** Pygments is relatively slow. Expect much longer build times when using server-side highlighting.
+ * Pygments is relatively slow. Expect much longer build times when using server-side highlighting.
  * Languages available depends on your Pygments installation.
- * We have sought to have the simplest interface possible, which consequently
-limits configuration. An ambitious user is encouraged to extend the current
-functionality to offer more customization.
+ * We have sought to have the simplest interface possible, which consequently limits configuration. An ambitious user is encouraged to extend the current functionality to offer more customization.
 
 
 ## Client-side
