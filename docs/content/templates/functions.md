@@ -373,6 +373,9 @@ Reads a file from disk and converts it into a string. Note that the filename mus
  `{{readFile "README.txt"}}` → `"Hugo Rocks!"`
 
 ### imageConfig
+
+**NOTE:** This doesn't currently work. See [this issue](https://github.com/spf13/hugo/issues/2806).
+
 Parses the image and returns the height, width and color model.
 
 e.g.
