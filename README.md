@@ -9,7 +9,7 @@ This is a fork. Official repository located at [github](https://github.com/zinad
 
 Add Hugo and its package dependencies to your go `src` directory.
 
-    go get -v github.com/zinadesign/hugo && go get -u -v github.com/kardianos/govendor && cd $GOPATH/src/github.com/zinadesign/hugo && go install
+    go get -v github.com/zinadesign/hugo && go get -u -v github.com/kardianos/govendor && cd $GOPATH/src/github.com/zinadesign/hugo && govendor sync && go install
 
 Once the `get` completes, you should find your new `hugo` (or `hugo.exe`) executable sitting inside `$GOPATH/bin/`.
 
