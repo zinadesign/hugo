@@ -2097,7 +2097,10 @@ func getenv(key interface{}) (string, error) {
 
 	return os.Getenv(skey), nil
 }
-
+func add_to_map(m map[string]interface{}, key string, value interface{}) (string, error) {
+	m[key] = value
+	return "", nil
+}
 func (tf *templateFuncster) initFuncMap() {
 	funcMap := template.FuncMap{
 		"absURL": absURL,
@@ -2202,6 +2205,7 @@ func (tf *templateFuncster) initFuncMap() {
 		"where":        where,
 		"i18n":         i18nTranslate,
 		"T":            i18nTranslate,
+		"add_to_map":   add_to_map,
 	}
 
 	tf.funcMap = funcMap
