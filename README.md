@@ -6,6 +6,7 @@ This is a fork. Official repository located at [github](https://github.com/spf13
 
 ### Build and Install the Binaries from Source (Advanced Install)
 
+
 Add Hugo and its package dependencies to your go `src` directory.
 
     go get -v github.com/zinadesign/hugo && go get -u -v github.com/kardianos/govendor && cd $GOPATH/src/github.com/zinadesign/hugo && go install
