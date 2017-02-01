@@ -1,5 +1,5 @@
 image: WMF 5
-clone_folder: c:\GOPATH\src\github.com\spf13\hugo
+clone_folder: c:\GOPATH\src\github.com\zinadesign\hugo
 init:
 - cmd: >-
     set PATH=%PATH%;C:\MinGW\bin;C:\GOPATH\bin

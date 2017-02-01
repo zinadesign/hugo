@@ -40,10 +40,10 @@ RUN go get github.com/stretchr/testify/assert \
 	&& go get github.com/bep/gitmap \
 	&& go get github.com/nicksnyder/go-i18n/i18n
 
-COPY . /go/src/github.com/spf13/hugo
+COPY . /go/src/github.com/zinadesign/hugo
 
-RUN cd /go/src/github.com/spf13/hugo \
+RUN cd /go/src/github.com/zinadesign/hugo \
 	&& go get -d -v \
 	&& go install \
-	&& go test github.com/spf13/hugo/...
+	&& go test github.com/zinadesign/hugo/...
 

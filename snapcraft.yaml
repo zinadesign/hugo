@@ -17,7 +17,7 @@ parts:
   hugo:
     source: .
     plugin: go
-    go-importpath: "github.com/spf13/hugo"
+    go-importpath: "github.com/zinadesign/hugo"
     build-packages:
       - git
     stage-packages:
