@@ -27,9 +27,9 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/spf13/hugo/tpl"
+	"github.com/zinadesign/hugo/tpl"
 
-	"github.com/spf13/hugo/helpers"
+	"github.com/zinadesign/hugo/helpers"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"

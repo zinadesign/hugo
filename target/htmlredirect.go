@@ -21,8 +21,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugofs"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugofs"
 	jww "github.com/spf13/jwalterweatherman"
 )
 

@@ -23,9 +23,9 @@ import (
 
 	"github.com/eknkc/amber"
 	"github.com/spf13/afero"
-	bp "github.com/spf13/hugo/bufferpool"
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugofs"
+	bp "github.com/zinadesign/hugo/bufferpool"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugofs"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/yosssi/ace"
 )
@@ -268,7 +268,7 @@ func (t *GoHTMLTemplate) AddTemplateFileWithMaster(name, overlayFilename, master
 	} else {
 		// The extra lookup is a workaround, see
 		// * https://github.com/golang/go/issues/16101
-		// * https://github.com/spf13/hugo/issues/2549
+		// * https://github.com/zinadesign/hugo/issues/2549
 		overlayTpl = overlayTpl.Lookup(overlayTpl.Name())
 		if err := applyTemplateTransformers(overlayTpl); err != nil {
 			return err

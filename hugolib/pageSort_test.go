@@ -20,8 +20,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/source"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/source"
 	"github.com/stretchr/testify/assert"
 )
 

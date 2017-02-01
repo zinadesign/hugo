@@ -17,7 +17,7 @@ import (
 	"bytes"
 
 	"github.com/dchest/cssmin"
-	"github.com/spf13/hugo/source"
+	"github.com/zinadesign/hugo/source"
 )
 
 func init() {

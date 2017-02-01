@@ -28,7 +28,7 @@ Please don't use the Github issue tracker to ask questions.
 ## Reporting Issues
 
 If you believe you have found a defect in Hugo or its documentation, use
-the Github [issue tracker](https://github.com/spf13/hugo/issues) to report the problem to the Hugo maintainers.
+the Github [issue tracker](https://github.com/zinadesign/hugo/issues) to report the problem to the Hugo maintainers.
 If you're not sure if it's a bug or not, start by asking in the [discussion forum](http://discuss.gohugo.io).
 When reporting the issue, please provide the version of Hugo in use (`hugo version`) and your operating system.
 
@@ -93,13 +93,13 @@ started:
 1. Get the latest Hugo sources:
 
     ```
-    go get -u -t github.com/spf13/hugo/...
+    go get -u -t github.com/zinadesign/hugo/...
     ```
 
 1. Change to the Hugo source directory:
 
     ```
-    cd $GOPATH/src/github.com/spf13/hugo
+    cd $GOPATH/src/github.com/zinadesign/hugo
     ```
 
 1. Create a new branch for your changes (the branch name is arbitrary):
@@ -133,7 +133,7 @@ started:
 ### Build Hugo with Your Changes
 
 ```bash
-cd $GOPATH/src/github.com/spf13/hugo
+cd $GOPATH/src/github.com/zinadesign/hugo
 go build
 mv hugo /usr/local/bin/
 ```
@@ -142,7 +142,7 @@ mv hugo /usr/local/bin/
 
 To add compile information to Hugo, replace the `go build` command with the following *(replace `/path/to/hugo` with the actual path)*:
 
-    go build -ldflags "-X /path/to/hugo/hugolib.CommitHash=`git rev-parse --short HEAD 2>/dev/null` -X github.com/spf13/hugo/hugolib.BuildDate=`date +%FT%T%z`"
+    go build -ldflags "-X /path/to/hugo/hugolib.CommitHash=`git rev-parse --short HEAD 2>/dev/null` -X github.com/zinadesign/hugo/hugolib.BuildDate=`date +%FT%T%z`"
 
 This will result in `hugo version` output that looks similar to:
 

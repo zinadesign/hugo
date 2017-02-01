@@ -25,9 +25,9 @@ import (
 
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugolib"
-	"github.com/spf13/hugo/parser"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugolib"
+	"github.com/zinadesign/hugo/parser"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"
 )
@@ -168,7 +168,7 @@ func FindArchetype(fs afero.Fs, kind string) (outpath string) {
 	for _, x := range search {
 		// If the new content isn't in a subdirectory, kind == "".
 		// Therefore it should be excluded otherwise `is a directory`
-		// error will occur. github.com/spf13/hugo/issues/411
+		// error will occur. github.com/zinadesign/hugo/issues/411
 		var pathsToCheck []string
 
 		if kind == "" {

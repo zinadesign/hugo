@@ -22,8 +22,8 @@ import (
 	"github.com/bep/gitmap"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/parser"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/parser"
 
 	"html/template"
 	"io"
@@ -37,9 +37,9 @@ import (
 	"unicode/utf8"
 
 	"github.com/spf13/cast"
-	bp "github.com/spf13/hugo/bufferpool"
-	"github.com/spf13/hugo/hugofs"
-	"github.com/spf13/hugo/source"
+	bp "github.com/zinadesign/hugo/bufferpool"
+	"github.com/zinadesign/hugo/hugofs"
+	"github.com/zinadesign/hugo/source"
 	"github.com/spf13/viper"
 )
 
@@ -1332,7 +1332,7 @@ func (p *Page) SetSourceContent(content []byte) {
 }
 
 func (p *Page) SetSourceMetaData(in interface{}, mark rune) (err error) {
-	// See https://github.com/spf13/hugo/issues/2458
+	// See https://github.com/zinadesign/hugo/issues/2458
 	defer func() {
 		if r := recover(); r != nil {
 			var ok bool

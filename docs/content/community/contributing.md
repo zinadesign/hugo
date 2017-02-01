@@ -33,7 +33,7 @@ We wrote a [detailed guide]({{< relref "tutorials/how-to-contribute-to-hugo.md" 
 
 ## Clone locally (for contributors):
 
-    git clone https://github.com/spf13/hugo
+    git clone https://github.com/zinadesign/hugo
     cd hugo
     go get
 
@@ -41,13 +41,13 @@ Because Go expects all of your libraries to be found in either
 `$GOROOT` or `$GOPATH`, it's helpful to symlink the project to one
 of the following paths:
 
- * `ln -s /path/to/your/hugo $GOPATH/src/github.com/spf13/hugo`
- * `ln -s /path/to/your/hugo $GOROOT/src/pkg/github.com/spf13/hugo`
+ * `ln -s /path/to/your/hugo $GOPATH/src/github.com/zinadesign/hugo`
+ * `ln -s /path/to/your/hugo $GOROOT/src/pkg/github.com/zinadesign/hugo`
 
 ## Running Hugo
 
     cd /path/to/hugo
-    go install github.com/spf13/hugo/hugo
+    go install github.com/zinadesign/hugo/hugo
     go run main.go
 
 ## Building Hugo
@@ -101,10 +101,10 @@ Check a last time that everything works as expected. Start Hugo's built-in serve
 
     hugo server
 
-If everything looks fine, we are ready to commit your additions. For the sake of best practices, please make sure that your commit follows our [code contribution guideline](https://github.com/spf13/hugo#code-contribution-guideline).
+If everything looks fine, we are ready to commit your additions. For the sake of best practices, please make sure that your commit follows our [code contribution guideline](https://github.com/zinadesign/hugo#code-contribution-guideline).
 
     git commit -m"docs: Add example.com to the showcase"
 
-Last but not least, we're ready to create a [pull request](https://github.com/spf13/hugo/compare).
+Last but not least, we're ready to create a [pull request](https://github.com/zinadesign/hugo/compare).
 
 Don't forget to accept the contributor license agreement. Click on the yellow badge in the automatically added comment in the pull request.

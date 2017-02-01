@@ -22,11 +22,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugofs"
-	"github.com/spf13/hugo/source"
-	"github.com/spf13/hugo/target"
-	"github.com/spf13/hugo/tpl"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugofs"
+	"github.com/zinadesign/hugo/source"
+	"github.com/zinadesign/hugo/target"
+	"github.com/zinadesign/hugo/tpl"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 )
@@ -48,7 +48,7 @@ func CheckShortCodeMatch(t *testing.T, input, expected string, withTemplate func
 func CheckShortCodeMatchAndError(t *testing.T, input, expected string, withTemplate func(templ tpl.Template) error, expectError bool) {
 	testCommonResetState()
 
-	// Need some front matter, see https://github.com/spf13/hugo/issues/2337
+	// Need some front matter, see https://github.com/zinadesign/hugo/issues/2337
 	contentFile := `---
 title: "Title"
 ---

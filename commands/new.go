@@ -22,10 +22,10 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/hugo/create"
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugofs"
-	"github.com/spf13/hugo/parser"
+	"github.com/zinadesign/hugo/create"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugofs"
+	"github.com/zinadesign/hugo/parser"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"
 )
@@ -287,7 +287,7 @@ func touchFile(x ...string) {
 func createThemeMD(inpath string) (err error) {
 
 	by := []byte(`# theme.toml template for a Hugo theme
-# See https://github.com/spf13/hugoThemes#themetoml for an example
+# See https://github.com/zinadesign/hugoThemes#themetoml for an example
 
 name = "` + strings.Title(helpers.MakeTitle(filepath.Base(inpath))) + `"
 license = "MIT"

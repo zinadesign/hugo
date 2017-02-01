@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/spf13/hugo/helpers"
+	"github.com/zinadesign/hugo/helpers"
 )
 
 // The TaxonomyList is a list of all taxonomies and their values

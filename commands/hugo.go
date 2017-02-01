@@ -27,11 +27,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/spf13/hugo/tpl"
+	"github.com/zinadesign/hugo/tpl"
 
-	"github.com/spf13/hugo/hugofs"
+	"github.com/zinadesign/hugo/hugofs"
 
-	"github.com/spf13/hugo/parser"
+	"github.com/zinadesign/hugo/parser"
 	flag "github.com/spf13/pflag"
 
 	"regexp"
@@ -40,11 +40,11 @@ import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/fsync"
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugolib"
-	"github.com/spf13/hugo/livereload"
-	"github.com/spf13/hugo/utils"
-	"github.com/spf13/hugo/watcher"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugolib"
+	"github.com/zinadesign/hugo/livereload"
+	"github.com/zinadesign/hugo/utils"
+	"github.com/zinadesign/hugo/watcher"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/nitro"
 	"github.com/spf13/viper"

@@ -17,9 +17,9 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugofs"
-	"github.com/spf13/hugo/source"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugofs"
+	"github.com/zinadesign/hugo/source"
 	"github.com/spf13/viper"
 )
 

@@ -17,7 +17,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/spf13/hugo/helpers"
+	"github.com/zinadesign/hugo/helpers"
 )
 
 // testdataPermalinks is used by a couple of tests; the expandsTo content is

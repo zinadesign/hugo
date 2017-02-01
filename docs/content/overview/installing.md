@@ -15,7 +15,7 @@ weight: 20
 
 Hugo is written in [Go][] with support for multiple platforms.
 
-The latest release can be found at [Hugo Releases](https://github.com/spf13/hugo/releases).
+The latest release can be found at [Hugo Releases](https://github.com/zinadesign/hugo/releases).
 We currently provide pre-built binaries for
 <i class="fa fa-windows"></i>&nbsp;Windows,
 <i class="fa fa-linux"></i>&nbsp;Linux,
@@ -28,7 +28,7 @@ Hugo may also be compiled from source wherever the Go compiler tool chain can ru
 ## Installing Hugo (binary)
 
 Installation is very easy. Simply download the appropriate version for your
-platform from [Hugo Releases](https://github.com/spf13/hugo/releases).
+platform from [Hugo Releases](https://github.com/zinadesign/hugo/releases).
 Once downloaded it can be run from anywhere. You don't need to install
 it into a global location. This works well for shared hosts and other systems
 where you don't have a privileged account.
@@ -72,7 +72,7 @@ In any of the [Linux distributions that support snaps](http://snapcraft.io/docs/
 ### Get directly from GitHub
 
     $ export GOPATH=$HOME/go
-    $ go get -v github.com/spf13/hugo
+    $ go get -v github.com/zinadesign/hugo
 
 `go get` will then fetch Hugo and all its dependent libraries to your
 `$GOPATH/src` directory, and compile everything into the final `hugo`
@@ -81,7 +81,7 @@ In any of the [Linux distributions that support snaps](http://snapcraft.io/docs/
 
 You may run `go get` with the `-u` option to update Hugo's dependencies:
 
-    $ go get -u -v github.com/spf13/hugo
+    $ go get -u -v github.com/zinadesign/hugo
 
 ## Contributing
 

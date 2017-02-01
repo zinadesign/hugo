@@ -19,7 +19,7 @@ import (
 	"strings"
 
 	"github.com/bep/gitmap"
-	"github.com/spf13/hugo/helpers"
+	"github.com/zinadesign/hugo/helpers"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"
 )

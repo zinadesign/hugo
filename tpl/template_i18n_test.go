@@ -17,7 +17,7 @@ import (
 	"testing"
 
 	"github.com/nicksnyder/go-i18n/i18n/bundle"
-	"github.com/spf13/hugo/helpers"
+	"github.com/zinadesign/hugo/helpers"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 )

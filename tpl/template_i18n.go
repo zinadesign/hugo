@@ -15,7 +15,7 @@ package tpl
 
 import (
 	"github.com/nicksnyder/go-i18n/i18n/bundle"
-	"github.com/spf13/hugo/helpers"
+	"github.com/zinadesign/hugo/helpers"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"
 )

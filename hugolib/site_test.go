@@ -23,11 +23,11 @@ import (
 	"github.com/bep/inflect"
 	jww "github.com/spf13/jwalterweatherman"
 
-	"github.com/spf13/hugo/helpers"
-	"github.com/spf13/hugo/hugofs"
-	"github.com/spf13/hugo/source"
+	"github.com/zinadesign/hugo/helpers"
+	"github.com/zinadesign/hugo/hugofs"
+	"github.com/zinadesign/hugo/source"
 
-	"github.com/spf13/hugo/target"
+	"github.com/zinadesign/hugo/target"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

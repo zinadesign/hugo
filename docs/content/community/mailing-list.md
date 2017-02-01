@@ -44,7 +44,7 @@ https://groups.google.com/forum/#!forum/golang-nuts
 
 ### GitHub Issues
 
-https://github.com/spf13/hugo/issues
+https://github.com/zinadesign/hugo/issues
 
 ### Twitter
 

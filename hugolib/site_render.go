@@ -20,8 +20,8 @@ import (
 	"sync"
 	"time"
 
-	bp "github.com/spf13/hugo/bufferpool"
-	"github.com/spf13/hugo/helpers"
+	bp "github.com/zinadesign/hugo/bufferpool"
+	"github.com/zinadesign/hugo/helpers"
 	"github.com/spf13/viper"
 )
 

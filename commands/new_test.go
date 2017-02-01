@@ -18,7 +18,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/spf13/hugo/hugofs"
+	"github.com/zinadesign/hugo/hugofs"
 	"github.com/stretchr/testify/assert"
 )
 

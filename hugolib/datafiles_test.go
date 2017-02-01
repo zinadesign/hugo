@@ -19,8 +19,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/spf13/hugo/parser"
-	"github.com/spf13/hugo/source"
+	"github.com/zinadesign/hugo/parser"
+	"github.com/zinadesign/hugo/source"
 	"github.com/stretchr/testify/require"
 )
 

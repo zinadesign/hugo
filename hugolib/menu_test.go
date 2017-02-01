@@ -18,13 +18,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/spf13/hugo/helpers"
+	"github.com/zinadesign/hugo/helpers"
 
 	"path/filepath"
 
 	toml "github.com/pelletier/go-toml"
-	"github.com/spf13/hugo/hugofs"
-	"github.com/spf13/hugo/source"
+	"github.com/zinadesign/hugo/hugofs"
+	"github.com/zinadesign/hugo/source"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
