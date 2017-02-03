@@ -1495,6 +1495,7 @@ func (p *Page) prepareData(s *Site) error {
 			return fmt.Errorf("Data for section %s not found", p.Section())
 		}
 		pages = sectionData.Pages()
+
 	case KindTaxonomy:
 		plural := p.sections[0]
 		term := p.sections[1]
@@ -1525,6 +1526,7 @@ func (p *Page) prepareData(s *Site) error {
 	}
 
 	p.Data["Pages"] = pages
+	p.Data["Duck"] = "cruck cruck!"
 	p.Pages = pages
 
 	// Now we know enough to set missing dates on home page etc.
@@ -1800,4 +1802,40 @@ func (p *Page) setValuesForKind(s *Site) {
 
 	p.s = s
 
+}
+func (p *Page) Breadcrumbs() (map[string]string, error) {
+	section_map := map[string]bool{"portfolio": true, "contacts": true, "about": true, "tech": true}
+	kind_map := map[string]bool{"taxonomy": true, "taxonomyTerm": true}
+	breadcrumb_map := make(map[string]string)
+	home_page_title := "Создание сайтов"
+	section_title := p.Section()
+	if section_map[p.Section()] || p.Type() == "main" || kind_map[p.Kind] {
+		home_page_title = p.Site.Title
+	}
+	breadcrumb_map["/"] = home_page_title
+	if kind_map[p.Kind] {
+		taxonomy_url := "/"+p.Data["Plural"].(string)+"/"
+		page, err := p.s.findPageByUrl(taxonomy_url)
+		if err == nil {
+			breadcrumb_map[taxonomy_url] = page.Title
+		} else {
+			breadcrumb_map[taxonomy_url] = p.Data["Plural"].(string)
+		}
+		if p.URL() != taxonomy_url {
+			breadcrumb_map[p.URL()] = p.Title
+		}
+	}  else if len(section_title) > 0 {
+		section_url := "/"+section_title+"/"
+		page, err := p.s.findPageByUrl(section_url)
+		if err == nil {
+			breadcrumb_map[section_url] = page.Title
+		} else {
+			breadcrumb_map[section_url] = section_title
+		}
+	}
+
+	if p.IsPage() && p.Site.BaseURL != template.URL(p.getPermalink().String())  {
+		breadcrumb_map[p.URL()] = p.Title
+	}
+	return breadcrumb_map, nil
 }

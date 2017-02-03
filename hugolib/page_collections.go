@@ -13,10 +13,15 @@
 
 package hugolib
 
+import (
+	"fmt"
+)
+
 // PageCollections contains the page collections for a site.
 type PageCollections struct {
 	// Includes only pages of all types, and only pages in the current language.
 	Pages Pages
+	PagesByUrl map[string]*Page
 
 	// Includes all pages in all languages, including the current one.
 	// Inlcudes pages of all types.
@@ -102,6 +107,20 @@ func (*PageCollections) findPagesByKindNotIn(kind string, inPages Pages) Pages {
 
 func (c *PageCollections) findPagesByKind(kind string) Pages {
 	return c.findPagesByKindIn(kind, c.Pages)
+}
+
+func (c *PageCollections) findPageByUrl(url string) (Page, error) {
+	if len(c.PagesByUrl) == 0 {
+		c.PagesByUrl = make(map[string]*Page)
+		for _, p := range c.Pages {
+			c.PagesByUrl[p.URL()] = p
+		}
+	}
+	if _, ok := c.PagesByUrl[url]; ok {
+		return *c.PagesByUrl[url], nil
+	}
+	var page Page
+	return page, fmt.Errorf("Page with url %s not found", url)
 }
 
 func (c *PageCollections) addPage(page *Page) {
