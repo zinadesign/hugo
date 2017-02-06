@@ -1836,6 +1836,24 @@ func (p *Page) Breadcrumbs() (Breadcrumbs, error) {
 					breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: p.Pages[0].Section()})
 				}
 			}
+		}  else {
+			terms := p.s.Taxonomies[p.Data["Plural"].(string)]
+			for _, t_pages  := range terms {
+				for _, i := range t_pages {
+					if len(i.Page.Section()) > 0 {
+						section_url := "/"+i.Page.Section()+"/"
+						s_page, err := p.s.findPageByUrl(section_url)
+						if err == nil {
+							breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: s_page.Title})
+						} else {
+							breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: i.Page.Section()})
+						}
+					}
+					break
+				}
+				break
+			}
+			//p.Data["Terms"]
 		}
 		if err == nil {
 			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: taxonomy_url, Title: page.Title})
