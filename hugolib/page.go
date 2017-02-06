@@ -66,6 +66,12 @@ const (
 	kindRobotsTXT = "robotsTXT"
 	kind404       = "404"
 )
+type Breadcrumb struct {
+	URL string
+	Title string
+}
+
+type Breadcrumbs []Breadcrumb
 
 type Page struct {
 	*pageInit
@@ -1803,39 +1809,54 @@ func (p *Page) setValuesForKind(s *Site) {
 	p.s = s
 
 }
-func (p *Page) Breadcrumbs() (map[string]string, error) {
-	section_map := map[string]bool{"portfolio": true, "contacts": true, "about": true, "tech": true}
+func (p *Page) Breadcrumbs() (Breadcrumbs, error) {
+	section_map := map[string]bool{"portfolio": true, "contacts": true, "about": true, "tech": true, "sitemap": true}
 	kind_map := map[string]bool{"taxonomy": true, "taxonomyTerm": true}
-	breadcrumb_map := make(map[string]string)
+
+	breadcrumb_map := Breadcrumbs{}
 	home_page_title := "Создание сайтов"
 	section_title := p.Section()
+	if p.URL() == "/portfolio/all/" {
+		section_title = "portfolio"
+	}
 	if section_map[p.Section()] || p.Type() == "main" || kind_map[p.Kind] {
 		home_page_title = p.Site.Title
 	}
-	breadcrumb_map["/"] = home_page_title
+	breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: "/", Title: home_page_title})
 	if kind_map[p.Kind] {
 		taxonomy_url := "/"+p.Data["Plural"].(string)+"/"
 		page, err := p.s.findPageByUrl(taxonomy_url)
+		if(p.URL() != taxonomy_url) {
+			if len(p.Pages) > 0 && len(p.Pages[0].Section()) > 0 {
+				section_url := "/"+p.Pages[0].Section()+"/"
+				s_page, err := p.s.findPageByUrl(section_url)
+				if err == nil {
+					breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: s_page.Title})
+				} else {
+					breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: p.Pages[0].Section()})
+				}
+			}
+		}
 		if err == nil {
-			breadcrumb_map[taxonomy_url] = page.Title
+			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: taxonomy_url, Title: page.Title})
 		} else {
-			breadcrumb_map[taxonomy_url] = p.Data["Plural"].(string)
+			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: taxonomy_url, Title: p.Data["Plural"].(string)})
 		}
 		if p.URL() != taxonomy_url {
-			breadcrumb_map[p.URL()] = p.Title
+			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: p.URL(), Title: p.Title})
 		}
 	}  else if len(section_title) > 0 {
 		section_url := "/"+section_title+"/"
 		page, err := p.s.findPageByUrl(section_url)
 		if err == nil {
-			breadcrumb_map[section_url] = page.Title
+			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: page.Title})
 		} else {
-			breadcrumb_map[section_url] = section_title
+			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: section_title})
 		}
 	}
 
-	if p.IsPage() && p.Site.BaseURL != template.URL(p.getPermalink().String())  {
-		breadcrumb_map[p.URL()] = p.Title
+	if (p.IsPage() || p.Kind == "section" && len(section_title) == 0) && p.Site.BaseURL != template.URL(p.getPermalink().String())  {
+		breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: p.URL(), Title: p.Title})
 	}
 	return breadcrumb_map, nil
 }
