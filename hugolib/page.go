@@ -1898,7 +1898,7 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 	html += "<ul>"
 	for term_name, val := range term_hierarchy {
 		term_url := "/"+taxonomy_plural+"/"+term_name+"/"
-		term_title := strings.Title(strings.Replace(term_url, "-", " ", -1))
+		term_title := strings.Title(strings.Replace(term_name, "-", " ", -1))
 		page, err := p.s.findPageByUrl(term_url)
 		inline_ul := ""
 		switch val.(type) {
