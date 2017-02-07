@@ -1878,20 +1878,20 @@ func (p *Page) Breadcrumbs() (Breadcrumbs, error) {
 	}
 	return breadcrumb_map, nil
 }
-func filterTermsInHierarchy(hierarchy map[string]interface{}, terms_defined Taxonomy, term_in_hierarchy map[string]bool) {
+func filterTermsInHierarchy(hierarchy map[string]interface{}, terms_defined Taxonomy, term_in_hierarchy map[string]bool) (map[string]interface{}) {
+	term_hierarchy := make(map[string]interface{})
 	for key, val := range hierarchy {
-		if _, ok := terms_defined[key]; !ok {
-			delete(hierarchy, key)
-		} else {
+		if _, ok := terms_defined[key]; ok {
+			term_hierarchy[key] = val
 			term_in_hierarchy[key] = true
 		}
 		switch val.(type) {
 			case map[string]interface{}:
-				filterTermsInHierarchy(val.(map[string]interface{}), terms_defined, term_in_hierarchy)
+				term_hierarchy[key] = filterTermsInHierarchy(val.(map[string]interface{}), terms_defined, term_in_hierarchy)
 			default:
 		}
 	}
-	return
+	return term_hierarchy
 }
 func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plural string, p *Page) string {
 	html := ""
@@ -1916,15 +1916,9 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 }
 func (p *Page) TaxonomyTerms(taxonomy_plural string, sort_by string) template.HTML {
 	t_h := p.Site.Params["terms_hierarchy"].(map[string]interface{})
-	term_hierarchy := make(map[string]interface{})
 	term_in_hierarchy := make(map[string]bool)
-	for k, v := range t_h {
-		term_hierarchy[k] = v
-	}
-
-	//terms_in_hierarchy  := make(map[string]bool)
 	terms := p.s.Taxonomies[taxonomy_plural]
-	filterTermsInHierarchy(term_hierarchy, terms, term_in_hierarchy)
+	term_hierarchy := filterTermsInHierarchy(t_h, terms, term_in_hierarchy)
 	for term_name, _  := range terms {
 		 if _, ok := term_in_hierarchy[term_name]; !ok {
 			 term_hierarchy[term_name] = nil
