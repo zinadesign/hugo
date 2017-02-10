@@ -2,7 +2,7 @@
 
 A Fast and Flexible Static Site Generator built with love
 
-This is a fork. Official repository located at [github](https://github.com/zinadesign/hugo)
+This is a fork. Official repository located at [github](https://github.com/spf13/hugo)
 
 ### Build and Install the Binaries from Source (Advanced Install)
 
