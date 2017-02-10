@@ -53,15 +53,6 @@ var defaultPageSort = func(p1, p2 *Page) bool {
 		}
 		return p1.Date.Unix() > p2.Date.Unix()
 	}
-
-	if p2.Weight == 0 {
-		return true
-	}
-
-	if p1.Weight == 0 {
-		return false
-	}
-
 	return p1.Weight < p2.Weight
 }
 
@@ -75,15 +66,6 @@ var languagePageSort = func(p1, p2 *Page) bool {
 		}
 		return p1.Date.Unix() > p2.Date.Unix()
 	}
-
-	if p2.language.Weight == 0 {
-		return true
-	}
-
-	if p1.language.Weight == 0 {
-		return false
-	}
-
 	return p1.language.Weight < p2.language.Weight
 }
 
