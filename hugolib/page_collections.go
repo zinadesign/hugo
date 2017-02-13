@@ -15,7 +15,9 @@ package hugolib
 
 import (
 	"fmt"
+	"sync"
 )
+
 
 // PageCollections contains the page collections for a site.
 type PageCollections struct {
@@ -109,15 +111,22 @@ func (c *PageCollections) findPagesByKind(kind string) Pages {
 	return c.findPagesByKindIn(kind, c.Pages)
 }
 
+var (
+	pageUrlMapLock sync.RWMutex
+)
+
 func (c *PageCollections) findPageByUrl(url string) (Page, error) {
+	pageUrlMapLock.Lock()
+	defer pageUrlMapLock.Unlock()
 	if len(c.PagesByUrl) == 0 {
 		c.PagesByUrl = make(map[string]*Page)
 		for _, p := range c.Pages {
 			c.PagesByUrl[p.URL()] = p
 		}
 	}
-	if _, ok := c.PagesByUrl[url]; ok {
-		return *c.PagesByUrl[url], nil
+	res_page, ok := c.PagesByUrl[url]
+	if ok {
+		return *res_page, nil
 	}
 	var page Page
 	return page, fmt.Errorf("Page with url %s not found", url)
