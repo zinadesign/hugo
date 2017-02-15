@@ -1885,12 +1885,13 @@ func filterTermsInHierarchy(hierarchy map[string]interface{}, terms_defined Taxo
 		if _, ok := terms_defined[key]; ok {
 			term_hierarchy[key] = val
 			term_in_hierarchy[key] = true
+			switch val.(type) {
+				case map[string]interface{}:
+					term_hierarchy[key] = filterTermsInHierarchy(val.(map[string]interface{}), terms_defined, term_in_hierarchy)
+				default:
+			}
 		}
-		switch val.(type) {
-			case map[string]interface{}:
-				term_hierarchy[key] = filterTermsInHierarchy(val.(map[string]interface{}), terms_defined, term_in_hierarchy)
-			default:
-		}
+
 	}
 	return term_hierarchy
 }
