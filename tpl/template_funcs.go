@@ -2225,6 +2225,37 @@ func add_to_map(m map[string]interface{}, key string, value interface{}) string 
 	m[key] = value
 	return ""
 }
+func truncatechars(n int, s string) string {
+	if n < 0 {
+		return s
+	}
+
+	r := []rune(s)
+	rLength := len(r)
+
+	if n >= rLength {
+		return s
+	}
+
+	if n > 3 && rLength > 3 {
+		return string(r[:n-3]) + "..."
+	}
+
+	return string(r[:n])
+}
+func titlePage(max_chars int, titles ...interface{}) string {
+	page_title := ""
+	for _, title := range titles {
+		if title != nil && len(title.(string)) > 0 {
+			page_title = title.(string)
+			break
+		}
+	}
+	if max_chars > 0 {
+		page_title = truncatechars(max_chars, page_title)
+	}
+	return page_title
+}
 func (tf *templateFuncster) initFuncMap() {
 	funcMap := template.FuncMap{
 		"absURL": absURL,
@@ -2330,6 +2361,8 @@ func (tf *templateFuncster) initFuncMap() {
 		"i18n":         i18nTranslate,
 		"T":            i18nTranslate,
 		"add_to_map":   add_to_map,
+		"truncatechrs": truncatechars,
+		"titlePage":    titlePage,
 	}
 
 	tf.funcMap = funcMap
