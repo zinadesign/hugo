@@ -141,8 +141,8 @@ type TaxonomyTermInfo struct {
 }
 
 func (c *PageCollections) GetTermInfo(taxonomy_name string, term_name string) (TaxonomyTermInfo) {
-	term_name = helpers.CurrentPathSpec().URLize(term_name)
-	url := fmt.Sprintf("/%s/%s/", taxonomy_name, term_name)
+	term_name_url_encoded := helpers.CurrentPathSpec().URLize(term_name)
+	url := fmt.Sprintf("/%s/%s/", taxonomy_name, term_name_url_encoded)
 	if p, ok := c.findPageByUrl(url); ok == nil {
 		return TaxonomyTermInfo{Title: p.Title, URL: p.URL()}
 	}
