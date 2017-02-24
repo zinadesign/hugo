@@ -16,6 +16,8 @@ package hugolib
 import (
 	"fmt"
 	"sync"
+	"time"
+	"github.com/zinadesign/hugo/helpers"
 )
 
 
@@ -130,6 +132,21 @@ func (c *PageCollections) findPageByUrl(url string) (Page, error) {
 	}
 	var page Page
 	return page, fmt.Errorf("Page with url %s not found", url)
+}
+type TaxonomyTermInfo struct {
+	Title string
+	Date time.Time
+	Weight int
+	URL string
+}
+
+func (c *PageCollections) GetTermInfo(taxonomy_name string, term_name string) (TaxonomyTermInfo) {
+	term_name = helpers.CurrentPathSpec().URLize(term_name)
+	url := fmt.Sprintf("/%s/%s/", taxonomy_name, term_name)
+	if p, ok := c.findPageByUrl(url); ok == nil {
+		return TaxonomyTermInfo{Title: p.Title, URL: p.URL()}
+	}
+	return TaxonomyTermInfo{Title: term_name, URL: url}
 }
 
 func (c *PageCollections) addPage(page *Page) {
