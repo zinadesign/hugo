@@ -35,13 +35,13 @@ import (
 	"sync"
 	"time"
 	"unicode/utf8"
+	"sort"
 
 	"github.com/spf13/cast"
 	bp "github.com/zinadesign/hugo/bufferpool"
 	"github.com/zinadesign/hugo/hugofs"
 	"github.com/zinadesign/hugo/source"
 	"github.com/spf13/viper"
-	"sort"
 )
 
 var (
@@ -1895,7 +1895,7 @@ func filterTermsInHierarchy(hierarchy map[string]interface{}, terms_defined Taxo
 	}
 	return term_hierarchy
 }
-func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plural string, p *Page, sort_by string) string {
+func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plural string, p *Page, sort_by string, template_name string) string {
 	html := ""
 	terms := []TaxonomyTerm{}
 	for term_name, val := range term_hierarchy {
@@ -1904,10 +1904,10 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 		term_date := time.Time{}
 		term_weight := 0
 		page, err := p.s.findPageByUrl(term_url)
-		inline_ul := ""
+		inline_ul := template.HTML("")
 		switch val.(type) {
 			case map[string]interface{}:
-				inline_ul += outputTermsInHierarchy(val.(map[string]interface{}), taxonomy_plural, p, sort_by)
+				inline_ul = template.HTML(outputTermsInHierarchy(val.(map[string]interface{}), taxonomy_plural, p, sort_by, template_name))
 			default:
 		}
 		if err == nil {
@@ -1915,7 +1915,7 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 			term_date = page.Date
 			term_weight = page.Weight
 		}
-		terms = append(terms, TaxonomyTerm{Title: term_title, Weight: term_weight, Date: term_date, inline_ul: inline_ul, URL: term_url})
+		terms = append(terms, TaxonomyTerm{Title: term_title, Weight: term_weight, Date: term_date, Inline_ul: inline_ul, URL: term_url})
 	}
 	switch sort_by {
 		case "title":
@@ -1928,14 +1928,9 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 			sort.Sort(TaxonomyTermByWeight(terms))
 
 	}
+
 	if len(terms) > 0 {
-		html += "<ul>"
-	}
-	for _, term := range terms {
-		html += fmt.Sprintf("<li><a href=\"%[1]s\">%[2]s</a>%[3]s</li>", term.URL, term.Title, term.inline_ul)
-	}
-	if len(terms) > 0 {
-		html += "</ul>"
+		html += string(p.s.tmpl.ExecuteTemplateToHTML(terms, "partials/"+template_name, "theme/partials/"+template_name))
 	}
 	return html
 }
@@ -1944,7 +1939,7 @@ type TaxonomyTerm struct {
 	Date time.Time
 	Weight int
 	URL string
-	inline_ul string
+	Inline_ul template.HTML
 }
 type TaxonomyTermByTitle[] TaxonomyTerm
 type TaxonomyTermByWeight[] TaxonomyTerm
@@ -1959,7 +1954,7 @@ func (a TaxonomyTermByDate) Len() int           { return len(a) }
 func (a TaxonomyTermByDate) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a TaxonomyTermByDate) Less(i, j int) bool { return a[i].Date.Unix() < a[j].Date.Unix() }
 
-func (p *Page) TaxonomyTerms(taxonomy_plural string, sort_by string) template.HTML {
+func (p *Page) TaxonomyTerms(taxonomy_plural, sort_by, template_name string) template.HTML {
 	t_h := p.Site.Params["terms_hierarchy"].(map[string]interface{})
 	term_in_hierarchy := make(map[string]bool)
 	terms := p.s.Taxonomies[taxonomy_plural]
@@ -1969,5 +1964,5 @@ func (p *Page) TaxonomyTerms(taxonomy_plural string, sort_by string) template.HT
 			 term_hierarchy[term_name] = nil
 		 }
 	}
-	return template.HTML(outputTermsInHierarchy(term_hierarchy, taxonomy_plural, p, sort_by))
+	return template.HTML(outputTermsInHierarchy(term_hierarchy, taxonomy_plural, p, sort_by, template_name))
 }
