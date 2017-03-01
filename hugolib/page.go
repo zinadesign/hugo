@@ -1915,7 +1915,8 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 			term_date = page.Date
 			term_weight = page.Weight
 		}
-		terms = append(terms, TaxonomyTerm{Title: term_title, Weight: term_weight, Date: term_date, Inline_ul: inline_ul, URL: term_url})
+		page_count := p.s.Taxonomies[taxonomy_plural].Count(term_name)
+		terms = append(terms, TaxonomyTerm{Title: term_title, Weight: term_weight, Date: term_date, Inline_ul: inline_ul, URL: term_url, Count: page_count})
 	}
 	switch sort_by {
 		case "title":
@@ -1940,6 +1941,7 @@ type TaxonomyTerm struct {
 	Weight int
 	URL string
 	Inline_ul template.HTML
+	Count int
 }
 type TaxonomyTermByTitle[] TaxonomyTerm
 type TaxonomyTermByWeight[] TaxonomyTerm
