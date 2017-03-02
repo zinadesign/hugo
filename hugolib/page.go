@@ -27,7 +27,6 @@ import (
 
 	"html/template"
 	"io"
-	"net/url"
 	"path"
 	"path/filepath"
 	"regexp"
@@ -36,6 +35,7 @@ import (
 	"time"
 	"unicode/utf8"
 	"sort"
+	"net/url"
 
 	"github.com/spf13/cast"
 	bp "github.com/zinadesign/hugo/bufferpool"
@@ -1416,14 +1416,22 @@ func (p *Page) FullFilePath() string {
 }
 
 func (p *Page) TargetPath() (outfile string) {
-
 	switch p.Kind {
 	case KindHome:
 		return p.addLangFilepathPrefix(helpers.FilePathSeparator)
 	case KindSection:
 		return p.addLangFilepathPrefix(p.sections[0])
 	case KindTaxonomy:
-		return p.addLangFilepathPrefix(filepath.Join(p.sections...))
+		if len(strings.TrimSpace(p.URLPath.URL)) > 2  {
+			outfile = strings.TrimSpace(p.URLPath.URL)
+			outfile = filepath.FromSlash(outfile)
+			outfile = strings.Trim(outfile, "/")
+			outfile, _ = url.QueryUnescape(outfile)
+			return
+		} else {
+			return p.addLangFilepathPrefix(filepath.Join(p.sections...))
+		}
+
 	case KindTaxonomyTerm:
 		return p.addLangFilepathPrefix(filepath.Join(p.sections...))
 	}
@@ -1783,7 +1791,9 @@ func kindFromFilename(filename string) string {
 	// We don't know enough yet to determine the type.
 	return kindUnknown
 }
-
+var (
+	custom_taxonomy_urls = make(map[string]string)
+)
 func (p *Page) setValuesForKind(s *Site) {
 	if p.Kind == kindUnknown {
 		// This is either a taxonomy list, taxonomy term or a section
@@ -1802,6 +1812,10 @@ func (p *Page) setValuesForKind(s *Site) {
 	case KindSection:
 		p.URLPath.URL = "/" + p.sections[0] + "/"
 	case KindTaxonomy:
+		if len(p.URLPath.URL) > 2 {
+			custom_taxonomy_urls["/" + path.Join(p.sections...) + "/"] = p.URLPath.URL
+			return
+		}
 		p.URLPath.URL = "/" + path.Join(p.sections...) + "/"
 	case KindTaxonomyTerm:
 		p.URLPath.URL = "/" + path.Join(p.sections...) + "/"
@@ -1914,6 +1928,7 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 			term_title = page.Title
 			term_date = page.Date
 			term_weight = page.Weight
+			term_url = page.URL()
 		}
 		page_count := p.s.Taxonomies[taxonomy_plural].Count(term_name)
 		terms = append(terms, TaxonomyTerm{Title: term_title, Weight: term_weight, Date: term_date, Inline_ul: inline_ul, URL: term_url, Count: page_count})

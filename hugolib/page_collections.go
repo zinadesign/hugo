@@ -126,6 +126,9 @@ func (c *PageCollections) findPageByUrl(url string) (Page, error) {
 			c.PagesByUrl[p.URL()] = p
 		}
 	}
+	if custom_url, ok := custom_taxonomy_urls[url]; ok {
+		url = custom_url
+	}
 	res_page, ok := c.PagesByUrl[url]
 	if ok {
 		return *res_page, nil
