@@ -151,6 +151,25 @@ func (c *PageCollections) GetTermInfo(taxonomy_name string, term_name string) (T
 	}
 	return TaxonomyTermInfo{Title: term_name, URL: url}
 }
+func (c *PageCollections) PageIsActive(current_page_url, taget_page_url string) (bool, error) {
+	if taget_page_url == current_page_url {
+		return true, nil
+	}
+	if taget_page_url == "/" || current_page_url == "/404/" {
+		return false, nil
+	}
+	current_page, ok := c.findPageByUrl(current_page_url)
+	if ok != nil {
+		return false, ok
+	}
+	breadcrumbs, _ := current_page.Breadcrumbs()
+	for _, breadcrumb := range breadcrumbs {
+		if breadcrumb.URL == taget_page_url {
+			return true, nil
+		}
+	}
+	return false, nil
+}
 
 func (c *PageCollections) addPage(page *Page) {
 	c.rawAllPages = append(c.rawAllPages, page)
