@@ -1909,7 +1909,7 @@ func filterTermsInHierarchy(hierarchy map[string]interface{}, terms_defined Taxo
 	}
 	return term_hierarchy
 }
-func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plural string, p *Page, sort_by string, template_name string) string {
+func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plural string, p *Page, sort_by string, template_name string, order_direction bool) string {
 	html := ""
 	terms := []TaxonomyTerm{}
 	for term_name, val := range term_hierarchy {
@@ -1921,7 +1921,7 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 		inline_ul := template.HTML("")
 		switch val.(type) {
 			case map[string]interface{}:
-				inline_ul = template.HTML(outputTermsInHierarchy(val.(map[string]interface{}), taxonomy_plural, p, sort_by, template_name))
+				inline_ul = template.HTML(outputTermsInHierarchy(val.(map[string]interface{}), taxonomy_plural, p, sort_by, template_name, order_direction))
 			default:
 		}
 		if err == nil {
@@ -1935,13 +1935,35 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 	}
 	switch sort_by {
 		case "title":
-			sort.Sort(TaxonomyTermByTitle(terms))
+			if order_direction == false {
+				sort.Sort(sort.Reverse(TaxonomyTermByTitle(terms)))
+			} else {
+				sort.Sort(TaxonomyTermByTitle(terms))
+			}
 		case "date":
-			sort.Sort(TaxonomyTermByDate(terms))
+			if order_direction == false {
+				sort.Sort(sort.Reverse(TaxonomyTermByDate(terms)))
+			} else {
+				sort.Sort(TaxonomyTermByDate(terms))
+			}
 		case "weight":
-			sort.Sort(TaxonomyTermByWeight(terms))
+			if order_direction == false {
+				sort.Sort(sort.Reverse(TaxonomyTermByWeight(terms)))
+			} else {
+				sort.Sort(TaxonomyTermByWeight(terms))
+			}
+		case "count":
+			if order_direction == false {
+				sort.Sort(sort.Reverse(TaxonomyTermByCount(terms)))
+			} else {
+				sort.Sort(TaxonomyTermByCount(terms))
+			}
 		default:
-			sort.Sort(TaxonomyTermByWeight(terms))
+			if order_direction == false {
+				sort.Sort(sort.Reverse(TaxonomyTermByWeight(terms)))
+			} else {
+				sort.Sort(TaxonomyTermByWeight(terms))
+			}
 
 	}
 
@@ -1961,6 +1983,7 @@ type TaxonomyTerm struct {
 type TaxonomyTermByTitle[] TaxonomyTerm
 type TaxonomyTermByWeight[] TaxonomyTerm
 type TaxonomyTermByDate[] TaxonomyTerm
+type TaxonomyTermByCount[] TaxonomyTerm
 func (a TaxonomyTermByTitle) Len() int           { return len(a) }
 func (a TaxonomyTermByTitle) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a TaxonomyTermByTitle) Less(i, j int) bool { return a[i].Title < a[j].Title }
@@ -1970,8 +1993,11 @@ func (a TaxonomyTermByWeight) Less(i, j int) bool { return a[i].Weight < a[j].We
 func (a TaxonomyTermByDate) Len() int           { return len(a) }
 func (a TaxonomyTermByDate) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a TaxonomyTermByDate) Less(i, j int) bool { return a[i].Date.Unix() < a[j].Date.Unix() }
+func (a TaxonomyTermByCount) Len() int           { return len(a) }
+func (a TaxonomyTermByCount) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a TaxonomyTermByCount) Less(i, j int) bool { return a[i].Count < a[j].Count }
 
-func (p *Page) TaxonomyTerms(taxonomy_plural, sort_by, template_name string) template.HTML {
+func (p *Page) TaxonomyTerms(taxonomy_plural, sort_by, template_name string, order_direction bool) template.HTML {
 	t_h := p.Site.Params["terms_hierarchy"].(map[string]interface{})
 	term_in_hierarchy := make(map[string]bool)
 	terms := p.s.Taxonomies[taxonomy_plural]
@@ -1981,5 +2007,5 @@ func (p *Page) TaxonomyTerms(taxonomy_plural, sort_by, template_name string) tem
 			 term_hierarchy[term_name] = nil
 		 }
 	}
-	return template.HTML(outputTermsInHierarchy(term_hierarchy, taxonomy_plural, p, sort_by, template_name))
+	return template.HTML(outputTermsInHierarchy(term_hierarchy, taxonomy_plural, p, sort_by, template_name, order_direction))
 }
