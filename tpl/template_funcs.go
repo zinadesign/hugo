@@ -2117,12 +2117,27 @@ func truncatechars(n int, s string) string {
 	}
 
 	if n > 3 && rLength > 3 {
-		return string(r[:n-3]) + "..."
+		truncated_string := r[:n-3]
+		for i := len(truncated_string); i < len(truncated_string) + 10; i++ {
+			var empty_string string  = " "
+			var new_line string = "\n"
+			if i > rLength - 1 {
+				break
+			} else if string(r[i]) == empty_string ||  string(r[i]) == new_line {
+				break
+			}
+			truncated_string = append(truncated_string, r[i])
+		}
+		if len(truncated_string) < rLength {
+			return string(truncated_string) + "…"
+		} else {
+			return string(truncated_string)
+		}
 	}
 
 	return string(r[:n])
 }
-func titlePage(max_chars int, titles ...interface{}) string {
+func firstFilled(max_chars int, titles ...interface{}) string {
 	page_title := ""
 	for _, title := range titles {
 		if title != nil && len(title.(string)) > 0 {
@@ -2241,7 +2256,7 @@ func (tf *templateFuncster) initFuncMap() {
 		"T":            i18nTranslate,
 		"add_to_map":   add_to_map,
 		"truncatechrs": truncatechars,
-		"titlePage":    titlePage,
+		"firstFilled":    firstFilled,
 	}
 
 	tf.funcMap = funcMap
