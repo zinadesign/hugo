@@ -1909,6 +1909,24 @@ func filterTermsInHierarchy(hierarchy map[string]interface{}, terms_defined Taxo
 	}
 	return term_hierarchy
 }
+func filterTermsInHierarchyByStartTerm(hierarchy map[string]interface{}, start_from_term string) map[string]interface{} {
+	term_hierarchy := make(map[string]interface{})
+	for key, val := range hierarchy {
+		if key == start_from_term {
+			term_hierarchy[key] = val
+			break
+		}
+		switch val.(type) {
+			case map[string]interface{}:
+				children := filterTermsInHierarchyByStartTerm(val.(map[string]interface{}), start_from_term)
+				for child_name, child_val := range children {
+					term_hierarchy[child_name] = child_val
+				}
+			default:
+		}
+	}
+	return term_hierarchy
+}
 func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plural string, p *Page, sort_by string, template_name string, order_direction bool) string {
 	html := ""
 	terms := []TaxonomyTerm{}
@@ -2000,12 +2018,23 @@ func (a TaxonomyTermByCount) Less(i, j int) bool { return a[i].Count < a[j].Coun
 func (p *Page) TaxonomyTerms(taxonomy_plural, sort_by, template_name string, order_direction bool) template.HTML {
 	t_h := p.Site.Params["terms_hierarchy"].(map[string]interface{})
 	term_in_hierarchy := make(map[string]bool)
+	start_from_term := ""
+
+	if  strings.Contains(taxonomy_plural, ".") {
+		splitted :=  strings.Split(taxonomy_plural, ".")
+		taxonomy_plural = splitted[0]
+		start_from_term = splitted[1]
+	}
+
 	terms := p.s.Taxonomies[taxonomy_plural]
 	term_hierarchy := filterTermsInHierarchy(t_h, terms, term_in_hierarchy)
 	for term_name, _  := range terms {
 		 if _, ok := term_in_hierarchy[term_name]; !ok {
 			 term_hierarchy[term_name] = nil
 		 }
+	}
+	if start_from_term != "" {
+		term_hierarchy = filterTermsInHierarchyByStartTerm(term_hierarchy, start_from_term)
 	}
 	return template.HTML(outputTermsInHierarchy(term_hierarchy, taxonomy_plural, p, sort_by, template_name, order_direction))
 }
