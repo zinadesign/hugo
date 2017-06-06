@@ -18,6 +18,7 @@ import (
 	"sync"
 	"time"
 	"github.com/zinadesign/hugo/helpers"
+	"strings"
 )
 
 
@@ -155,7 +156,7 @@ func (c *PageCollections) PageIsActive(current_page_url, taget_page_url string) 
 	if taget_page_url == current_page_url {
 		return true, nil
 	}
-	if taget_page_url == "/" || current_page_url == "/404/" {
+	if taget_page_url == "/" || strings.HasSuffix(current_page_url, "/404/") {
 		return false, nil
 	}
 	current_page, ok := c.findPageByUrl(current_page_url)
