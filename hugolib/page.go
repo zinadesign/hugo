@@ -1840,11 +1840,11 @@ func (p *Page) Breadcrumbs() (Breadcrumbs, error) {
 	breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: "/", Title: home_page_title})
 	if kind_map[p.Kind] {
 		taxonomy_url := "/"+p.Data["Plural"].(string)+"/"
-		page, err := p.s.findPageByUrl(taxonomy_url)
+		page, err := p.s.findPageByUrl(helpers.CurrentPathSpec().RelURL(taxonomy_url, true))
 		if(p.URL() != taxonomy_url) {
 			if len(p.Pages) > 0 && len(p.Pages[0].Section()) > 0 {
 				section_url := "/"+p.Pages[0].Section()+"/"
-				s_page, err := p.s.findPageByUrl(section_url)
+				s_page, err := p.s.findPageByUrl(helpers.CurrentPathSpec().RelURL(section_url, true))
 				if err == nil {
 					breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: s_page.Title})
 				} else {
@@ -1857,7 +1857,7 @@ func (p *Page) Breadcrumbs() (Breadcrumbs, error) {
 				for _, i := range t_pages {
 					if len(i.Page.Section()) > 0 {
 						section_url := "/"+i.Page.Section()+"/"
-						s_page, err := p.s.findPageByUrl(section_url)
+						s_page, err := p.s.findPageByUrl(helpers.CurrentPathSpec().RelURL(section_url, true))
 						if err == nil {
 							breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: s_page.Title})
 						} else {
@@ -1880,7 +1880,7 @@ func (p *Page) Breadcrumbs() (Breadcrumbs, error) {
 		}
 	}  else if len(section_title) > 0 {
 		section_url := "/"+section_title+"/"
-		page, err := p.s.findPageByUrl(section_url)
+		page, err := p.s.findPageByUrl(helpers.CurrentPathSpec().RelURL(section_url, true))
 		if err == nil {
 			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: page.Title})
 		} else {
@@ -1935,7 +1935,7 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 		term_title := strings.Title(strings.Replace(term_name, "-", " ", -1))
 		term_date := time.Time{}
 		term_weight := 0
-		page, err := p.s.findPageByUrl(term_url)
+		page, err := p.s.findPageByUrl(helpers.CurrentPathSpec().RelURL(term_url, true))
 		inline_ul := template.HTML("")
 		switch val.(type) {
 			case map[string]interface{}:

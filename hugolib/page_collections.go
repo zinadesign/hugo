@@ -120,10 +120,13 @@ var (
 
 func (c *PageCollections) findPageByUrl(url string) (Page, error) {
 	pageUrlMapLock.Lock()
+	//if strings.Contains(url, "about") {
+	//	print(url)
+	//}
 	defer pageUrlMapLock.Unlock()
 	if len(c.PagesByUrl) == 0 {
 		c.PagesByUrl = make(map[string]*Page)
-		for _, p := range c.Pages {
+		for _, p := range c.AllPages {
 			c.PagesByUrl[p.URL()] = p
 		}
 	}
