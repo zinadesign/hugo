@@ -54,3 +54,6 @@ func NewPathSpecFromConfig(config ConfigProvider) *PathSpec {
 func (p *PathSpec) PaginatePath() string {
 	return p.paginatePath
 }
+func (p *PathSpec) CurrentContentLanguage() *Language {
+	return p.currentContentLanguage
+}

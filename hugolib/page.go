@@ -1818,6 +1818,10 @@ func (p *Page) setValuesForKind(s *Site) {
 		}
 		p.URLPath.URL = "/" + path.Join(p.sections...) + "/"
 	case KindTaxonomyTerm:
+		if len(p.URLPath.URL) > 2 {
+			custom_taxonomy_urls["/" + path.Join(p.sections...) + "/"] = p.URLPath.URL
+			return
+		}
 		p.URLPath.URL = "/" + path.Join(p.sections...) + "/"
 	}
 
@@ -1931,11 +1935,12 @@ func outputTermsInHierarchy(term_hierarchy map[string]interface{}, taxonomy_plur
 	html := ""
 	terms := []TaxonomyTerm{}
 	for term_name, val := range term_hierarchy {
-		term_url := "/"+taxonomy_plural+"/"+term_name+"/"
+		term_url := helpers.CurrentPathSpec().RelURL("/"+taxonomy_plural+"/"+term_name+"/", true)
+		file_path := taxonomy_plural+"/"+term_name+"/_index."+helpers.CurrentPathSpec().CurrentContentLanguage().Lang+".md"
 		term_title := strings.Title(strings.Replace(term_name, "-", " ", -1))
 		term_date := time.Time{}
 		term_weight := 0
-		page, err := p.s.findPageByUrl(helpers.CurrentPathSpec().RelURL(term_url, true))
+		page, err := p.s.findPageByFilePath(file_path)
 		inline_ul := template.HTML("")
 		switch val.(type) {
 			case map[string]interface{}:

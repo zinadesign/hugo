@@ -27,6 +27,7 @@ type PageCollections struct {
 	// Includes only pages of all types, and only pages in the current language.
 	Pages Pages
 	PagesByUrl map[string]*Page
+	PagesByFilePath map[string]*Page
 
 	// Includes all pages in all languages, including the current one.
 	// Inlcudes pages of all types.
@@ -116,6 +117,7 @@ func (c *PageCollections) findPagesByKind(kind string) Pages {
 
 var (
 	pageUrlMapLock sync.RWMutex
+	pageFilePathMapLock sync.RWMutex
 )
 
 func (c *PageCollections) findPageByUrl(url string) (Page, error) {
@@ -140,6 +142,24 @@ func (c *PageCollections) findPageByUrl(url string) (Page, error) {
 	var page Page
 	return page, fmt.Errorf("Page with url %s not found", url)
 }
+
+func (c *PageCollections) findPageByFilePath(path string) (Page, error) {
+	pageFilePathMapLock.Lock()
+	defer pageFilePathMapLock.Unlock()
+	if len(c.PagesByFilePath) == 0 {
+		c.PagesByFilePath = make(map[string]*Page)
+		for _, p := range c.AllPages {
+			c.PagesByFilePath[p.Source.Path()] = p
+		}
+	}
+	res_page, ok := c.PagesByFilePath[path]
+	if ok {
+		return *res_page, nil
+	}
+	var page Page
+	return page, fmt.Errorf("Page with path %s not found", path)
+}
+
 type TaxonomyTermInfo struct {
 	Title string
 	Date time.Time
