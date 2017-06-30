@@ -1427,7 +1427,7 @@ func (p *Page) TargetPath() (outfile string) {
 			outfile = filepath.FromSlash(outfile)
 			outfile = strings.Trim(outfile, "/")
 			outfile, _ = url.QueryUnescape(outfile)
-			return
+			return p.addLangFilepathPrefix(outfile)
 		} else {
 			return p.addLangFilepathPrefix(filepath.Join(p.sections...))
 		}
