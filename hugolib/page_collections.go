@@ -170,7 +170,8 @@ type TaxonomyTermInfo struct {
 func (c *PageCollections) GetTermInfo(taxonomy_name string, term_name string) (TaxonomyTermInfo) {
 	term_name_url_encoded := helpers.CurrentPathSpec().URLize(term_name)
 	url := fmt.Sprintf("/%s/%s/", taxonomy_name, term_name_url_encoded)
-	if p, ok := c.findPageByUrl(url); ok == nil {
+	file_path := taxonomy_name+"/"+term_name_url_encoded+"/_index."+helpers.CurrentPathSpec().CurrentContentLanguage().Lang+".md"
+	if p, ok := c.findPageByFilePath(file_path); ok == nil {
 		return TaxonomyTermInfo{Title: p.Title, URL: p.URL()}
 	}
 	return TaxonomyTermInfo{Title: term_name, URL: url}
