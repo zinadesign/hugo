@@ -1702,6 +1702,10 @@ func (p *Page) shouldAddLanguagePrefix() bool {
 		return false
 	}
 
+	if strings.HasPrefix(p.URLPath.URL, "/"+p.Lang()+"/") {
+		return false
+	}
+
 	return true
 }
 
