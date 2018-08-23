@@ -1895,8 +1895,11 @@ func (p *Page) Breadcrumbs() (Breadcrumbs, error) {
 			breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: section_url, Title: section_title})
 		}
 	}
-
-	if (p.IsPage() || p.Kind == "section" && len(section_title) == 0) && p.Site.BaseURL != template.URL(p.getPermalink().String())  {
+	permalink, err := p.createPermalink()
+	if err != nil {
+		p.s.log.ERROR.Printf("Failed to create permalink for page %q: %s", p.FullFilePath(), err)
+	}
+	if (p.IsPage() || p.Kind == "section" && len(section_title) == 0) && p.Site.BaseURL != template.URL(permalink.String())  {
 		breadcrumb_map = append(breadcrumb_map, Breadcrumb{URL: p.URL(), Title: p.Title})
 	}
 	return breadcrumb_map, nil
